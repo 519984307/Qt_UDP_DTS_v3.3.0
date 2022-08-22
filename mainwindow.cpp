@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent):
     m_demodulation(new demodulation(this)),
     m_add_wave_widget(new add_wave_widget(m_demodulation)),
     m_maxValue_wavelength_widget(new MaxValue_wavelength_widget(m_demodulation)),
-    m_centroid_wavelength_widget(new Centroid_wavelength_widget(m_demodulation))
+    m_centroid_wavelength_widget(new Centroid_wavelength_widget(m_demodulation)),
+    m_tempDistance_widget(new Temp_distance_widget(m_demodulation))
 {
     ui->setupUi(this);
 
@@ -19,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent):
     connect(m_demodulation,&demodulation::sendToAdd_wave_widget,m_add_wave_widget,&add_wave_widget::display_wave,Qt::QueuedConnection);
     connect(m_demodulation,&demodulation::sendToMaxValue_widget,m_maxValue_wavelength_widget,&MaxValue_wavelength_widget::display_wave,Qt::QueuedConnection);
     connect(m_demodulation,&demodulation::sendToCentroid_widget,m_centroid_wavelength_widget,&Centroid_wavelength_widget::display_wave,Qt::QueuedConnection);
+    connect(m_demodulation,&demodulation::sendToTempDistance_widget,m_tempDistance_widget,&Temp_distance_widget::display_wave,Qt::QueuedConnection);
 }
 
 MainWindow::~MainWindow()
@@ -110,5 +112,13 @@ void MainWindow::on_btn_centroid_clicked()
     ui->m_textBrowser->insertPlainText(QString("Centroid Approach to get Central Wavelength ! ")+"\n");
 
     m_centroid_wavelength_widget->show();
+}
+
+
+void MainWindow::on_btn_temp_clicked()
+{
+    ui->m_textBrowser->insertPlainText(QString("Temperature Judgement ! ")+"\n");
+
+    m_tempDistance_widget->show();
 }
 

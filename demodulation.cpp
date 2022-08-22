@@ -190,6 +190,10 @@ void demodulation::run()
         if(Temp[a] == 0) Temp[a]='\0';
     }
 
+    emit sendToTempDistance_widget();
+
+    qDebug()<<"Temp Distance finished ! "<<endl;
+
 }
 
 double **demodulation::allocateData(int columns, int rows)

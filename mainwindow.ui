@@ -79,6 +79,18 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="btn_temp">
+          <property name="font">
+           <font>
+            <pointsize>13</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>温度判断</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>

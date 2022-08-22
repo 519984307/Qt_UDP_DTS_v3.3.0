@@ -94,6 +94,7 @@ signals:
     void sendToAdd_wave_widget();
     void sendToMaxValue_widget();
     void sendToCentroid_widget();
+    void sendToTempDistance_widget();
 };
 
 #endif // DEMODULATION_H

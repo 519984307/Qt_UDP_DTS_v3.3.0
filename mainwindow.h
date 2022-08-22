@@ -15,6 +15,7 @@
 #include "add_wave_widget.h"
 #include "MaxValue_wavelength_widget.h"
 #include "Centroid_wavelength_widget.h"
+#include "Temp_distance_widget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,6 +29,7 @@ class raw_wave_widget;
 class add_wave_widget;
 class MaxValue_wavelength_widget;
 class Centroid_wavelength_widget;
+class Temp_distance_widget;
 
 class MainWindow : public QMainWindow
 {
@@ -44,7 +46,7 @@ public:
     add_wave_widget* m_add_wave_widget;
     MaxValue_wavelength_widget* m_maxValue_wavelength_widget;
     Centroid_wavelength_widget* m_centroid_wavelength_widget;
-
+    Temp_distance_widget* m_tempDistance_widget;
 
 signals:
     void sendToRaw_wave_widget(double* _senddata);
@@ -60,6 +62,8 @@ private slots:
     void on_btn_maxValue_clicked();
 
     void on_btn_centroid_clicked();
+
+    void on_btn_temp_clicked();
 
 private:
 
