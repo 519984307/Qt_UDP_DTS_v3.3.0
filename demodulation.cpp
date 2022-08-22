@@ -3,12 +3,16 @@
 demodulation::demodulation(MainWindow* _mainWindow):
     m_mainwindow(_mainWindow),
     raw_data(_mainWindow->raw_data),
-    all_wavelength_data(new double*[50])
+    all_wavelength_data(new double*[50]),
+    spectrum_wava(new SurfacePlot()),
+    wavelength_MaxApproach(new double[25002]),
+    wavelength_CentroidApproach(new double[25002]),
+    Temp(new double[25002])
 {
     //step1: 按光源扫描波长整理数据，即将每一个波长的信号分开
     //step2: 将这些波长信号累加
     //step3: 画光谱
-    //step4: 最大值法确定波长 取x值，从yoz平面看
+    //step4: 最大值法确定中心波长/质点法确定中心波长
     //step5: 温度判断算法
 
     all_wavelength_data[0]=single_wave_data_1;
@@ -103,4 +107,102 @@ void demodulation::run()
     emit sendToAdd_wave_widget();
 
     qDebug()<<"add wavelength finished ! "<<endl;
+
+    /*---step3: 画光谱---*/
+     s1 = 500,  s2= 800; //取all_wavelength_data中距离轴的范围是s1~s2
+    w1=1550.5, w2=1553.44; //波长值的范围是w1~w2
+
+    wavelength_distance_array = allocateData(50, 50);
+
+    //给一条曲线赋值
+    for(int n = 0; n < 50; n++)
+    {
+        for(int l = 0; l <50; l++)
+        {
+            wavelength_distance_array[n][l] = all_wavelength_data[l][s1];
+        }
+    }
+
+    /*---step4: 最大值法确定中心波长---*/
+    for(int p=0;p<25002;p++){
+
+        double max_value = all_wavelength_data[0][p];
+
+        int max_index = 0;
+
+        for(int q=0;q<50;q++){
+            if(all_wavelength_data[q][p]>max_value){
+                max_index = q;
+                max_value = all_wavelength_data[q][p];
+            }
+        }
+
+        if(max_value>1) wavelength_MaxApproach[p]=max_index;
+        else wavelength_MaxApproach[p]='\0';
+    }
+
+    emit sendToMaxValue_widget();
+
+    qDebug()<<"MaxValue Wavelength finished ! "<<endl;
+
+    /*---step4: 质点法确定中心波长---*/
+    for(int p=0;p<25002;p++){
+
+        double max_value = all_wavelength_data[0][p];
+
+        int max_index = 0;
+
+        for(int q=0;q<50;q++){
+            if(all_wavelength_data[q][p]>max_value){
+                max_index = q;
+                max_value = all_wavelength_data[q][p];
+            }
+        }
+
+        if(max_value>3) {
+            double fenzi=0,fenmu=0;
+
+            for(int m=0;m<50;m++){
+                fenzi = fenzi + (all_wavelength_data[m][p]+50)*m;
+                fenmu = fenmu + (all_wavelength_data[m][p]+50);
+            }
+
+            wavelength_CentroidApproach[p] = fenzi/fenmu;
+        }
+        else wavelength_CentroidApproach[p] = '\0';
+    }
+
+    emit sendToCentroid_widget();
+
+    qDebug()<<"Centroid Wavelength finished ! "<<endl;
+
+    /*--step5: 温度判断算法--*/
+    memset(Temp,0,sizeof(Temp)); //Temp赋初值0
+
+    for(int a=0;a<25002;a++){
+
+        for(int b=0; b<50; b++){
+
+            if(all_wavelength_data[b][a]>1 && wavelength_MaxApproach[a]!='\0')
+                Temp[a] = (1550.5+0.06*(b-wavelength_MaxApproach[a])-1551.5)/0.01; //根据公式计算出温度值
+        }
+
+        if(Temp[a] == 0) Temp[a]='\0';
+    }
+
+}
+
+double **demodulation::allocateData(int columns, int rows)
+{
+    double** data  = new double* [columns] ;
+        for ( int i = 0; i < columns; ++i)
+        {        data[i]  = new double [rows];    }
+        return data;
+}
+
+void demodulation::deleteData(double **data, int columns)
+{
+    for ( int i = 0; i < columns; i++)
+        {         delete [] data[i];     }
+        delete [] data;
 }

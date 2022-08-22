@@ -13,6 +13,8 @@
 #include <sstream>
 #include "raw_wave_widget.h"
 #include "add_wave_widget.h"
+#include "MaxValue_wavelength_widget.h"
+#include "Centroid_wavelength_widget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +26,8 @@ class demodulation;
 class QCustomPlot;
 class raw_wave_widget;
 class add_wave_widget;
+class MaxValue_wavelength_widget;
+class Centroid_wavelength_widget;
 
 class MainWindow : public QMainWindow
 {
@@ -38,7 +42,8 @@ public:
     raw_wave_widget* m_raw_wave_widget;
     demodulation* m_demodulation;
     add_wave_widget* m_add_wave_widget;
-
+    MaxValue_wavelength_widget* m_maxValue_wavelength_widget;
+    Centroid_wavelength_widget* m_centroid_wavelength_widget;
 
 
 signals:
@@ -51,6 +56,10 @@ private slots:
     void on_btn_dspwave_clicked();
 
     void on_btn_demodulation_clicked();
+
+    void on_btn_maxValue_clicked();
+
+    void on_btn_centroid_clicked();
 
 private:
 

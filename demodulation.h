@@ -3,6 +3,10 @@
 
 #include <QObject>
 #include <mainwindow.h>
+#include <qwt3d_surfaceplot.h>
+#include <algorithm>
+
+using namespace Qwt3D;
 
 class MainWindow;
 class add_wave_widget;
@@ -69,13 +73,27 @@ public:
     double single_wave_data_49[25002]={'\0'};
     double single_wave_data_50[25002]={'\0'};
     double add_wave_data[25002]={'\0'};
+    double ** wavelength_distance_array;
+    double* wavelength_MaxApproach;
+    double* wavelength_CentroidApproach;
+    double* Temp;
 
     add_wave_widget* m_add_wave_widget;
+    SurfacePlot spectrum_wava;
+
+    int s1,s2;
+    double w1,w2;
 
     void run();
 
+    double** allocateData(int columns, int rows);
+
+    void deleteData(double**data, int columns);
+
 signals:
     void sendToAdd_wave_widget();
+    void sendToMaxValue_widget();
+    void sendToCentroid_widget();
 };
 
 #endif // DEMODULATION_H

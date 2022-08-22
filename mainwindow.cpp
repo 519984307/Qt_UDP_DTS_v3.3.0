@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent):
     raw_data(new double[1250100]),
     m_raw_wave_widget(new raw_wave_widget()),
     m_demodulation(new demodulation(this)),
-    m_add_wave_widget(new add_wave_widget(m_demodulation))
+    m_add_wave_widget(new add_wave_widget(m_demodulation)),
+    m_maxValue_wavelength_widget(new MaxValue_wavelength_widget(m_demodulation)),
+    m_centroid_wavelength_widget(new Centroid_wavelength_widget(m_demodulation))
 {
     ui->setupUi(this);
 
@@ -15,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent):
 
     connect(this,&MainWindow::sendToRaw_wave_widget,m_raw_wave_widget,&raw_wave_widget::display_wave);
     connect(m_demodulation,&demodulation::sendToAdd_wave_widget,m_add_wave_widget,&add_wave_widget::display_wave,Qt::QueuedConnection);
+    connect(m_demodulation,&demodulation::sendToMaxValue_widget,m_maxValue_wavelength_widget,&MaxValue_wavelength_widget::display_wave,Qt::QueuedConnection);
+    connect(m_demodulation,&demodulation::sendToCentroid_widget,m_centroid_wavelength_widget,&Centroid_wavelength_widget::display_wave,Qt::QueuedConnection);
 }
 
 MainWindow::~MainWindow()
@@ -59,7 +63,7 @@ void MainWindow::on_btn_readfls_clicked()
     infile.close();
 }
 
-
+//点击显示raw_data波形按钮
 void MainWindow::on_btn_dspwave_clicked()
 {
     emit sendToRaw_wave_widget(raw_data);
@@ -73,8 +77,38 @@ void MainWindow::on_btn_dspwave_clicked()
 
 void MainWindow::on_btn_demodulation_clicked()
 {
+    ui->m_textBrowser->insertPlainText(QString("Demodulation Data ! ")+"\n");
+
     m_demodulation->start(); //必须先开启demodulation线程，再显示add_wave_widget
 
     m_add_wave_widget->show();
+
+    m_demodulation->spectrum_wava.loadFromData(m_demodulation->wavelength_distance_array, 50, 50, m_demodulation->s1, m_demodulation->s1, m_demodulation->w1, m_demodulation->w2); //画一条曲线
+
+//        deleteData(pp, x);
+    m_demodulation->spectrum_wava.setRotation(30,0,15);
+    m_demodulation->spectrum_wava.setScale(1,1,1);
+    m_demodulation->spectrum_wava.setShift(0,0,0);
+    m_demodulation->spectrum_wava.setZoom(0.9);
+
+    m_demodulation->spectrum_wava.updateData();
+    //m_demodulation->spectrum_wava.updateGL();
+    m_demodulation->spectrum_wava.show();
+}
+
+
+void MainWindow::on_btn_maxValue_clicked()
+{
+    ui->m_textBrowser->insertPlainText(QString("MaxValue Approach to get Central Wavelength ! ")+"\n");
+
+    m_maxValue_wavelength_widget->show();
+}
+
+
+void MainWindow::on_btn_centroid_clicked()
+{
+    ui->m_textBrowser->insertPlainText(QString("Centroid Approach to get Central Wavelength ! ")+"\n");
+
+    m_centroid_wavelength_widget->show();
 }
 

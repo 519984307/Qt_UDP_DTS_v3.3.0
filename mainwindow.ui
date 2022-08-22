@@ -55,6 +55,30 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="btn_maxValue">
+          <property name="font">
+           <font>
+            <pointsize>13</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>最大值法</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_centroid">
+          <property name="font">
+           <font>
+            <pointsize>13</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>质心法</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
