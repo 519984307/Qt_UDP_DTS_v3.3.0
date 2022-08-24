@@ -11,22 +11,26 @@ CONFIG += c++11
 SOURCES += \
     Centroid_wavelength_widget.cpp \
     MaxValue_wavelength_widget.cpp \
+    Temp_distance_save.cpp \
     Temp_distance_widget.cpp \
     add_wave_widget.cpp \
     demodulation.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp \
+    raw_data_save.cpp \
     raw_wave_widget.cpp
 
 HEADERS += \
     Centroid_wavelength_widget.h \
     MaxValue_wavelength_widget.h \
+    Temp_distance_save.h \
     Temp_distance_widget.h \
     add_wave_widget.h \
     demodulation.h \
     mainwindow.h \
     qcustomplot.h \
+    raw_data_save.h \
     raw_wave_widget.h
 
 FORMS += \

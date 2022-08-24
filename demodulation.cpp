@@ -4,7 +4,7 @@ demodulation::demodulation(MainWindow* _mainWindow):
     m_mainwindow(_mainWindow),
     raw_data(_mainWindow->raw_data),
     all_wavelength_data(new double*[50]),
-    spectrum_wava(new SurfacePlot()),
+//    spectrum_wava(new SurfacePlot()),
     wavelength_MaxApproach(new double[25002]),
     wavelength_CentroidApproach(new double[25002]),
     Temp(new double[25002])
@@ -85,7 +85,7 @@ void demodulation::run()
 
         for(int j=0;j<25002;j++){
 
-             all_wavelength_data[i][j]=m_mainwindow->raw_data[p];
+             all_wavelength_data[(i+32)%50][j]=m_mainwindow->raw_data[p];
 
             p++;
         }
@@ -108,20 +108,20 @@ void demodulation::run()
 
     qDebug()<<"add wavelength finished ! "<<endl;
 
-    /*---step3: 画光谱---*/
-     s1 = 500,  s2= 800; //取all_wavelength_data中距离轴的范围是s1~s2
-    w1=1550.5, w2=1553.44; //波长值的范围是w1~w2
+    /*---step3: 画光谱 弃用---*/
+//     s1 = 500,  s2= 800; //取all_wavelength_data中距离轴的范围是s1~s2
+//    w1=1550.5, w2=1553.44; //波长值的范围是w1~w2
 
-    wavelength_distance_array = allocateData(50, 50);
+//    wavelength_distance_array = allocateData(50, 50);
 
-    //给一条曲线赋值
-    for(int n = 0; n < 50; n++)
-    {
-        for(int l = 0; l <50; l++)
-        {
-            wavelength_distance_array[n][l] = all_wavelength_data[l][s1];
-        }
-    }
+//    //给一条曲线赋值
+//    for(int n = 0; n < 50; n++)
+//    {
+//        for(int l = 0; l <50; l++)
+//        {
+//            wavelength_distance_array[n][l] = all_wavelength_data[l][s1];
+//        }
+//    }
 
     /*---step4: 最大值法确定中心波长---*/
     for(int p=0;p<25002;p++){
@@ -150,11 +150,11 @@ void demodulation::run()
 
         double max_value = all_wavelength_data[0][p];
 
-        int max_index = 0;
+//        int max_index = 0;
 
         for(int q=0;q<50;q++){
             if(all_wavelength_data[q][p]>max_value){
-                max_index = q;
+//                max_index = q;
                 max_value = all_wavelength_data[q][p];
             }
         }
@@ -177,14 +177,14 @@ void demodulation::run()
     qDebug()<<"Centroid Wavelength finished ! "<<endl;
 
     /*--step5: 温度判断算法--*/
-    memset(Temp,0,sizeof(Temp)); //Temp赋初值0
+//    memset(Temp,0,sizeof(Temp)); //Temp赋初值0
 
     for(int a=0;a<25002;a++){
 
         for(int b=0; b<50; b++){
 
-            if(all_wavelength_data[b][a]>1 && wavelength_MaxApproach[a]!='\0')
-                Temp[a] = (1550.5+0.06*(b-wavelength_MaxApproach[a])-1551.5)/0.01; //根据公式计算出温度值
+            if(all_wavelength_data[b][a]>1 && wavelength_CentroidApproach[a]!='\0')
+                Temp[a] = (1550.5+0.06*(b-wavelength_CentroidApproach[a])-1551.5)/0.01; //根据公式计算出温度值
         }
 
         if(Temp[a] == 0) Temp[a]='\0';

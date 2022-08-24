@@ -31,12 +31,13 @@ public:
 
 public slots:
 
-
 signals:
+    void sendToMainwindow_save();
 
 private slots:
     void on_btn_reset_clicked();
 
+    void on_btn_save_clicked();
 };
 
 #endif // RAW_WAVE_WIDGET_H

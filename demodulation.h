@@ -79,7 +79,7 @@ public:
     double* Temp;
 
     add_wave_widget* m_add_wave_widget;
-    SurfacePlot spectrum_wava;
+//    SurfacePlot spectrum_wava;
 
     int s1,s2;
     double w1,w2;

@@ -27,7 +27,7 @@
            </font>
           </property>
           <property name="text">
-           <string>读取txt文件</string>
+           <string>读取文件</string>
           </property>
          </widget>
         </item>
@@ -39,7 +39,7 @@
            </font>
           </property>
           <property name="text">
-           <string>显示raw_data波形</string>
+           <string>显示原始波形</string>
           </property>
          </widget>
         </item>
@@ -113,7 +113,7 @@
       <property name="font">
        <font>
         <family>Microsoft YaHei</family>
-        <pointsize>16</pointsize>
+        <pointsize>19</pointsize>
        </font>
       </property>
       <property name="text">

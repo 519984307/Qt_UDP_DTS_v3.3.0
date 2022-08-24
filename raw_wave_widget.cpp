@@ -29,6 +29,16 @@ void raw_wave_widget::init_widget()
     m_customPlot->xAxis2->setTickLabels(false);
     m_customPlot->yAxis2->setVisible(true);
     m_customPlot->yAxis2->setTickLabels(false);
+
+    m_customPlot->xAxis->setLabel("Sample Dots");
+    m_customPlot->yAxis->setLabel("Amplitudes");
+    QFont xFont = m_customPlot->xAxis->labelFont();
+     xFont.setPixelSize(20);
+     m_customPlot->xAxis->setLabelFont(xFont);
+     QFont yFont = m_customPlot->yAxis->labelFont();
+      yFont.setPixelSize(20);
+      m_customPlot->yAxis->setLabelFont(yFont);
+
     // 使上下两个X轴的范围总是相等，使左右两个Y轴的范围总是相等
     //    connect(m_customPlot->xAxis, &QCPAxis::rangeChanged(QCPRange), m_customPlot->xAxis2, &QCPAxis::setRange(QCPRange));
     //    connect(m_customPlot->yAxis, &QCPAxis::rangeChanged(QCPRange), m_customPlot->yAxis2, &QCPAxis::setRange(QCPRange));
@@ -71,5 +81,11 @@ void raw_wave_widget::on_btn_reset_clicked()
 
     // 立即刷新图像
     m_customPlot->replot();
+}
+
+
+void raw_wave_widget::on_btn_save_clicked()
+{
+    emit sendToMainwindow_save(); //点击保存按钮 向mainWindow发送信号
 }
 

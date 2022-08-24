@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 5.0.2, 2022-08-22T22:28:09. -->
+<!-- Written by QtCreator 5.0.2, 2022-08-23T11:05:27. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -233,8 +233,8 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:F:/Desktop/Qt UDP DTS/Qt_UDP_DTS_v2.0.0/Qt_UDP_DTS_v2.0.0.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">F:/Desktop/Qt UDP DTS/Qt_UDP_DTS_v2.0.0/Qt_UDP_DTS_v2.0.0.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:F:/Desktop/Qt UDP DTS/Qt_UDP_DTS_v2.1.0/Qt_UDP_DTS_v2.1.0.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">F:/Desktop/Qt UDP DTS/Qt_UDP_DTS_v2.1.0/Qt_UDP_DTS_v2.1.0.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
