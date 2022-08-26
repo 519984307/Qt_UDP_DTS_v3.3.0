@@ -11,6 +11,7 @@ class raw_wave_widget;
 }
 
 class MainWindow;
+class QWebEngineView;
 
 class raw_wave_widget : public QWidget
 {
@@ -23,6 +24,7 @@ public:
 
     double* show_data;
     QCustomPlot* m_customPlot;
+    QWebEngineView* m_WebEngineView;
 
     void init_widget();
 
@@ -35,7 +37,7 @@ signals:
 private slots:
     void on_btn_reset_clicked();
 
-    void on_btn_save_clicked();
+//    void on_btn_save_clicked();
 };
 
 #endif // RAW_WAVE_WIDGET_H

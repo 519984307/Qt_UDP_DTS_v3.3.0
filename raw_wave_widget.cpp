@@ -6,6 +6,31 @@ raw_wave_widget::raw_wave_widget():
 {
     ui->setupUi(this);
 
+    //关联html文件
+    //将echarts/dist文件夹内的echarts.min.js和xxx.html拷贝到Qt项目编译出来的可执行文件同级目录
+    ui->webEngineView_wave->setContextMenuPolicy(Qt::NoContextMenu);
+    this->setMinimumSize(500, 350);
+//    ui->webEngineView_wave->load(qApp->applicationDirPath() + "/raw_data_echarts.html");
+    ui->webEngineView_wave->load(qApp->applicationDirPath() + "/echarts.html");
+
+
+    //通过序列化，将数据转换为json字符串，在通过调用js脚本，进行数据传输
+    QJsonObject seriesData;
+    QJsonArray x,y;
+    for (int index = 0; index < 10000; ++index)
+    {
+        x.append(index);
+        y.append(qrand()%100);
+    }
+    seriesData.insert("x", x);
+    seriesData.insert("y", y);
+    QString optionStr = QJsonDocument(seriesData).toJson();
+    QString js = QString("update(%1)").arg(optionStr);//”update“ -- js中的函数名称
+    ui->webEngineView_wave->page()->runJavaScript(js);
+
+//    ui->webEngineView_wave->load(QUrl(QStringLiteral("./res/echarts.html")));
+    ui->webEngineView_wave->load(qApp->applicationDirPath() + "/echarts.html");
+
     init_widget();
 }
 
@@ -83,9 +108,9 @@ void raw_wave_widget::on_btn_reset_clicked()
     m_customPlot->replot();
 }
 
-
-void raw_wave_widget::on_btn_save_clicked()
-{
-    emit sendToMainwindow_save(); //点击保存按钮 向mainWindow发送信号
-}
+//点击保存数据按钮（弃用）
+//void raw_wave_widget::on_btn_save_clicked()
+//{
+//    emit sendToMainwindow_save(); //点击保存按钮 向mainWindow发送信号
+//}
 

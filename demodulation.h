@@ -74,9 +74,9 @@ public:
     double single_wave_data_50[25002]={'\0'};
     double add_wave_data[25002]={'\0'};
     double ** wavelength_distance_array;
-    double* wavelength_MaxApproach;
-    double* wavelength_CentroidApproach;
-    double* Temp;
+    double wavelength_MaxApproach[25002]={'\0'};
+    double wavelength_CentroidApproach[25002]={'\0'};
+    double Temp[25002]={'\0'};
 
     add_wave_widget* m_add_wave_widget;
 //    SurfacePlot spectrum_wava;
@@ -85,10 +85,6 @@ public:
     double w1,w2;
 
     void run();
-
-    double** allocateData(int columns, int rows);
-
-    void deleteData(double**data, int columns);
 
 signals:
     void sendToAdd_wave_widget();

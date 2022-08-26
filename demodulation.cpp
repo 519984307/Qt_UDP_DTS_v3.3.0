@@ -3,11 +3,11 @@
 demodulation::demodulation(MainWindow* _mainWindow):
     m_mainwindow(_mainWindow),
     raw_data(_mainWindow->raw_data),
-    all_wavelength_data(new double*[50]),
+    all_wavelength_data(new double*[50])
 //    spectrum_wava(new SurfacePlot()),
-    wavelength_MaxApproach(new double[25002]),
-    wavelength_CentroidApproach(new double[25002]),
-    Temp(new double[25002])
+//    wavelength_MaxApproach(new double[25002]),
+//    wavelength_CentroidApproach(new double[25002])
+//    Temp(new double[25002])
 {
     //step1: 按光源扫描波长整理数据，即将每一个波长的信号分开
     //step2: 将这些波长信号累加
@@ -104,7 +104,7 @@ void demodulation::run()
         add_wave_data[k] = 100*sum; //强度扩大100倍
     }
 
-    emit sendToAdd_wave_widget();
+//    emit sendToAdd_wave_widget();
 
     qDebug()<<"add wavelength finished ! "<<endl;
 
@@ -136,16 +136,16 @@ void demodulation::run()
                 max_value = all_wavelength_data[q][p];
             }
         }
-
+        //符合阈值条件的波长序号存入，不符合的序号设为0
         if(max_value>1) wavelength_MaxApproach[p]=max_index;
-        else wavelength_MaxApproach[p]='\0';
+//        else wavelength_MaxApproach[p] = 0;
     }
 
-    emit sendToMaxValue_widget();
+//    emit sendToMaxValue_widget();
 
     qDebug()<<"MaxValue Wavelength finished ! "<<endl;
 
-    /*---step4: 质点法确定中心波长---*/
+    /*---step4: 质心法确定中心波长---*/
     for(int p=0;p<25002;p++){
 
         double max_value = all_wavelength_data[0][p];
@@ -159,6 +159,7 @@ void demodulation::run()
             }
         }
 
+        //符合阈值条件的波长序号存入，不符合的序号设为0
         if(max_value>3) {
             double fenzi=0,fenmu=0;
 
@@ -169,15 +170,14 @@ void demodulation::run()
 
             wavelength_CentroidApproach[p] = fenzi/fenmu;
         }
-        else wavelength_CentroidApproach[p] = '\0';
+//        else wavelength_CentroidApproach[p] = 0;
     }
 
-    emit sendToCentroid_widget();
+//    emit sendToCentroid_widget();
 
     qDebug()<<"Centroid Wavelength finished ! "<<endl;
 
     /*--step5: 温度判断算法--*/
-//    memset(Temp,0,sizeof(Temp)); //Temp赋初值0
 
     for(int a=0;a<25002;a++){
 
@@ -187,26 +187,12 @@ void demodulation::run()
                 Temp[a] = (1550.5+0.06*(b-wavelength_CentroidApproach[a])-1551.5)/0.01; //根据公式计算出温度值
         }
 
-        if(Temp[a] == 0) Temp[a]='\0';
+//        if(Temp[a] == 0) Temp[a]='\0';
     }
 
-    emit sendToTempDistance_widget();
+//    emit sendToTempDistance_widget();
 
     qDebug()<<"Temp Distance finished ! "<<endl;
 
 }
 
-double **demodulation::allocateData(int columns, int rows)
-{
-    double** data  = new double* [columns] ;
-        for ( int i = 0; i < columns; ++i)
-        {        data[i]  = new double [rows];    }
-        return data;
-}
-
-void demodulation::deleteData(double **data, int columns)
-{
-    for ( int i = 0; i < columns; i++)
-        {         delete [] data[i];     }
-        delete [] data;
-}

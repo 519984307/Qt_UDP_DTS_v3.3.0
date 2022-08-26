@@ -7,6 +7,7 @@ add_wave_widget::add_wave_widget(demodulation* _demodulation):
 {
     ui->setupUi(this);
 
+
     init_widget();
 }
 

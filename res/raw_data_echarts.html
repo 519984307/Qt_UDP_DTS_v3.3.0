@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1200px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'Raw Data 波形显示'
+            },
+            tooltip: {},
+            xAxis: [{
+                name: '采样点'
+            }],
+            yAxis: [{
+                name: '数字化强度'
+            }],
+            series: [
+                {
+                    //画笛卡尔坐标系的折线图
+                    data: [
+                        [20, 120],
+                        [30, 200],
+                        [40, 50]
+                    ],
+                    type: 'line',
+                    label: {
+                        show: false,
+                        position: 'bottom',
+                        textStyle: {
+                            fontSize: 20
+                        }
+                    },
+                    emphasis:{
+                        label:{
+                            show: true
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

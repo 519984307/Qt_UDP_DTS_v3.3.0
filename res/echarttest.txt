@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <script src="./echarts.min.js"></script>
+    <script src="./qwebchannel.js"></script>
+
+</head>
+<p id="xlabel">x:</p>
+<p id="ylabel">y:</p>
+
+<body>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" class="chart" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        //自适应宽高
+        var resizeContainer = function () {
+            var myChart = document.getElementById('main');
+            myChart.style.width = window.innerWidth - 32 + 'px'; //
+            myChart.style.height = window.innerHeight - 100 + 'px'; //适应Qt内嵌边框
+        };
+
+        resizeContainer();
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'Qt实时传输数据调用ECharts示例',
+                left: '40%'
+            },
+            grid: {
+                left: '5%',
+                right: '3%',
+                top: '10%',
+                bottom: '8%'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['值'],
+                right: '10%',
+                top: '5%'
+            },
+            xAxis: {
+
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                name: '值',
+                type: 'line',
+                data: []
+            }]
+        };
+        myChart.setOption(option);
+        //自适应窗口大小
+        window.onresize = function () {
+            resizeContainer();
+            myChart.resize();
+        };
+        //接受从Qt来的数据
+        var x = [];
+        var y = [];
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+            var webobj = channel.objects.webobj;
+            //arg-QJsonObject类型
+            webobj.dataChanged.connect(function (arg) {
+                xlabel.innerHTML = "x:" + arg.x;
+                ylabel.innerHTML = "y:" + arg.y.toFixed(4);
+                x.push(arg.x);
+                y.push(arg.y.toFixed(4));
+
+                myChart.setOption({
+                    xAxis: {
+                        data: x
+                    },
+                    series: [{
+                        name: '值',
+                        data: y
+                    }]
+                });
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

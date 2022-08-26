@@ -19,6 +19,9 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QCustomPlot" name="customPlot_wave"/>
+   </item>
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -42,8 +45,8 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <widget class="QCustomPlot" name="customPlot_wave"/>
+   <item row="2" column="0">
+    <widget class="QWebEngineView" name="webEngineView_wave"/>
    </item>
   </layout>
  </widget>
@@ -51,7 +54,12 @@
   <customwidget>
    <class>QCustomPlot</class>
    <extends>QGraphicsView</extends>
-   <header location="global">qcustomplot.h</header>
+   <header>qcustomplot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">qwebengineview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

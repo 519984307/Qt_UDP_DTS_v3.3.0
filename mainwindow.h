@@ -18,6 +18,7 @@
 #include "Temp_distance_widget.h"
 #include "raw_data_save.h"
 #include "Temp_distance_save.h"
+#include <QtWebEngineWidgets>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -54,6 +55,18 @@ public:
     raw_data_save* m_raw_data_save;
     Temp_distance_save* m_temp_distance_save;
 
+    QCustomPlot* m_raw_data_widget;
+    QCustomPlot* m_add_wave_data_widget;
+    QCustomPlot* m_max_approach_widget;
+    QCustomPlot* m_centroid_approach_widget;
+    QCustomPlot* m_temp_distance_widget;
+
+    void init_widget_raw_data();
+    void init_widget_add_wave();
+    void init_widget_max_approach();
+    void init_widget_centroid_approach();
+    void init_widget_temp_distance();
+
 signals:
     void sendToRaw_wave_widget(double* _senddata);
 //    void sendToAdd_wave_widget(double* _senddata);
@@ -61,7 +74,7 @@ signals:
 private slots:
     void on_btn_readfls_clicked();
 
-    void on_btn_dspwave_clicked();
+//    void on_btn_dspwave_clicked();
 
     void on_btn_demodulation_clicked();
 
@@ -71,9 +84,13 @@ private slots:
 
     void on_btn_temp_clicked();
 
+    void on_btn_reset_wave_clicked();
+
+    void on_btn_save_temp_clicked();
+
 public slots:
     void save_raw_data();
-    void save_temp_distance_data();
+//    void save_temp_distance_data();
     void save_filename();
 
 private:

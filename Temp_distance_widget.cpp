@@ -87,9 +87,9 @@ void Temp_distance_widget::on_btn_reset_clicked()
     m_customPlot->replot();
 }
 
-
-void Temp_distance_widget::on_btn_save_clicked()
-{
-    emit sendToMainwindow_save();
-}
+//点击保存数据按钮（弃用）
+//void Temp_distance_widget::on_btn_save_clicked()
+//{
+//    emit sendToMainwindow_save();
+//}
 

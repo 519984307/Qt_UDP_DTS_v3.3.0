@@ -1,4 +1,4 @@
-QT       += core gui printsupport
+QT       += core gui printsupport webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -61,4 +61,11 @@ LIBS += $$PWD/lib/libqwtplot3d.a
 DEFINES  += QT_DLL QWT3D_DLL
 LIBS += -lopengl32 -lglu32
 
+QTQUICK_COMPILER_SKIPPED_RESOURCES += xxxx.qrc
 
+DISTFILES += \
+    res/echarts.html \
+    res/echarts.js \
+    res/echarts.min.js \
+    res/helloworld.html \
+    res/raw_data_echarts.html
