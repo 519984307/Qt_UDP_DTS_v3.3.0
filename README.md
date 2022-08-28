@@ -12,3 +12,6 @@
 
 # Qt_UDP_DTS_v3.0.0
 1、修改了UI的展示，将图像全部展示在主UI，考虑后期联合Web做界面美化
+
+# Qt_UDP_DTS_v3.1.0
+1、使用echarts.js加html和qt联调成功，用于显示波形图
