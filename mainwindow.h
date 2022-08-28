@@ -19,12 +19,9 @@
 #include "raw_data_save.h"
 #include "Temp_distance_save.h"
 #include <QtWebEngineWidgets>
-<<<<<<< HEAD
-=======
 #include <QtWebChannel>
 #include "webclass.h"
 #include <QResizeEvent>
->>>>>>> efa8b19 (第六次提交)
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -62,19 +59,11 @@ public:
     raw_data_save* m_raw_data_save;
     Temp_distance_save* m_temp_distance_save;
 
-<<<<<<< HEAD
-    QCustomPlot* m_raw_data_widget;
-    QCustomPlot* m_add_wave_data_widget;
-    QCustomPlot* m_max_approach_widget;
-    QCustomPlot* m_centroid_approach_widget;
-    QCustomPlot* m_temp_distance_widget;
-=======
     QWebEngineView* m_raw_data_widget;
     QWebEngineView* m_add_wave_data_widget;
     QWebEngineView* m_max_approach_widget;
     QWebEngineView* m_centroid_approach_widget;
     QWebEngineView* m_temp_distance_widget;
->>>>>>> efa8b19 (第六次提交)
 
     void init_widget_raw_data();
     void init_widget_add_wave();
@@ -82,8 +71,6 @@ public:
     void init_widget_centroid_approach();
     void init_widget_temp_distance();
 
-<<<<<<< HEAD
-=======
     void echarts_load_raw_data();
     void echarts_load_add_wave();
     void echarts_load_max_approach();
@@ -94,7 +81,6 @@ public:
 
     void test();
 
->>>>>>> efa8b19 (第六次提交)
 signals:
     void sendToRaw_wave_widget(double* _senddata);
 //    void sendToAdd_wave_widget(double* _senddata);
@@ -116,15 +102,12 @@ private slots:
 
     void on_btn_save_temp_clicked();
 
-<<<<<<< HEAD
-=======
     void onResizeEcharts1();
     void onResizeEcharts2();
     void onResizeEcharts3();
     void onResizeEcharts4();
     void onResizeEcharts5();
 
->>>>>>> efa8b19 (第六次提交)
 public slots:
     void save_raw_data();
 //    void save_temp_distance_data();

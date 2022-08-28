@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:Qt_UDP_DTS_v3.0.0.pro
-QT       += core gui printsupport webenginewidgets
-========
 QT       += core gui printsupport webenginewidgets webchannel
->>>>>>>> efa8b19 (第六次提交):Qt_UDP_DTS_v3.1.0.pro
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -70,13 +66,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 QTQUICK_COMPILER_SKIPPED_RESOURCES += xxxx.qrc
 
 DISTFILES += \
-<<<<<<<< HEAD:Qt_UDP_DTS_v3.0.0.pro
-    res/echarts.html \
     res/echarts.js \
     res/echarts.min.js \
-    res/helloworld.html \
-========
-    res/echarts.js \
-    res/echarts.min.js \
->>>>>>>> efa8b19 (第六次提交):Qt_UDP_DTS_v3.1.0.pro
     res/raw_data_echarts.html
