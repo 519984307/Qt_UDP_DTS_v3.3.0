@@ -6,16 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>1283</width>
     <height>922</height>
+=======
+    <width>1068</width>
+    <height>686</height>
+>>>>>>> efa8b19 (第六次提交)
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+<<<<<<< HEAD
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
+=======
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+>>>>>>> efa8b19 (第六次提交)
      <widget class="QLabel" name="label">
       <property name="maximumSize">
        <size>
@@ -38,6 +48,7 @@
      </widget>
     </item>
     <item row="3" column="0">
+<<<<<<< HEAD
      <widget class="QPushButton" name="btn_reset_wave">
       <property name="font">
        <font>
@@ -50,6 +61,98 @@
      </widget>
     </item>
     <item row="1" column="0">
+=======
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QWebEngineView" name="raw_data_widget">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWebEngineView" name="addwave_data_widget">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="2">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QWebEngineView" name="max_appraoch_widget">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWebEngineView" name="centroid_approach_widget">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QTextBrowser" name="m_textBrowser">
+        <property name="maximumSize">
+         <size>
+          <width>500</width>
+          <height>500</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="mouseTracking">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_reset_wave">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>复位图像</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_save_temp">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>保存数据</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0" colspan="3">
+>>>>>>> efa8b19 (第六次提交)
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="btn_readfls">
@@ -113,6 +216,7 @@
       </item>
      </layout>
     </item>
+<<<<<<< HEAD
     <item row="2" column="0">
      <widget class="QTextBrowser" name="m_textBrowser">
       <property name="maximumSize">
@@ -204,6 +308,20 @@
       </item>
      </layout>
     </item>
+=======
+    <item row="4" column="0" colspan="3">
+     <widget class="QWebEngineView" name="temp_distance_widget">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+     </widget>
+    </item>
+>>>>>>> efa8b19 (第六次提交)
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -211,8 +329,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
+<<<<<<< HEAD
      <width>1283</width>
      <height>25</height>
+=======
+     <width>1068</width>
+     <height>22</height>
+>>>>>>> efa8b19 (第六次提交)
     </rect>
    </property>
   </widget>
@@ -220,9 +343,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+<<<<<<< HEAD
    <class>QCustomPlot</class>
    <extends>QGraphicsView</extends>
    <header>qcustomplot.h</header>
+=======
+   <class>QWebEngineView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">qwebengineview.h</header>
+>>>>>>> efa8b19 (第六次提交)
   </customwidget>
  </customwidgets>
  <resources/>

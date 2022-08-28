@@ -3,10 +3,10 @@
 
 #include <QObject>
 #include <mainwindow.h>
-#include <qwt3d_surfaceplot.h>
+//#include <qwt3d_surfaceplot.h>
 #include <algorithm>
 
-using namespace Qwt3D;
+//using namespace Qwt3D;
 
 class MainWindow;
 class add_wave_widget;

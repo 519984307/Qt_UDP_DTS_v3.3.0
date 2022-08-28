@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="./echarts.js"></script>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 750px;height: 450px;"></div>
+    <script type="text/javascript">
+
+
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        //定义init()
+        function init() {
+
+            let sampledots = []; //采样点
+            let amplitude = []; //强度
+
+            for (var i = 1; i <= 25002; i++) {
+                sampledots.push([i*0.04]);
+                amplitude.push(0);
+            }
+
+            //定义option
+            var option = {
+                title: {
+                    text: "距离-温度波形图",
+                    x: "center"
+                },
+                tooltip: {
+                    trigger: "item",
+                    formatter: "{a} <br/>{b} : {c}"
+                },
+                legend: {
+                    x: 'left',
+                    data: ["Temperature"]
+                },
+                xAxis: [
+                    {
+                        type: "category",
+                        name: "距离/m",
+                        splitLine: { show: false },
+                        data: sampledots
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: "value",
+                        name: "温度/℃"
+                    }
+                ],
+                //小工具
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {
+                            show: true
+                        },
+                        dataView: { //数据视图
+                            show: true,
+                            readOnly: true
+                        },
+                        restore: { //还原
+                            show: true
+                        },
+                        saveAsImage: { //保存为图片
+                            show: true
+                        }
+                    }
+                },
+                calculable: true,
+                series: [
+                    {
+                        name: "Temperature",
+                        type: "line",
+                        // data: amplitude
+
+                    }
+                ]
+            };
+
+            //设置option
+            myChart.setOption(option);
+        }
+
+        //封装一个带参数的方法，这个参数则是我们要显示的数据
+        function init2(str) {
+
+            let sampledots = []; //采样点
+            let amplitude = []; //强度
+
+            for (var i = 1; i <= 25002; i++) {
+                sampledots.push([i*0.04]);
+                // amplitude.push(str["amplitude"]); //获取json字符串中的amplitude
+            }
+
+            var option = {
+                title: {
+                    text: "距离-温度波形图",
+                    x: "center"
+                },
+                tooltip: {
+                    trigger: "item",
+                    formatter: "{a} <br/>{b} : {c}"
+                },
+                legend: {
+                    x: 'left',
+                    data: ["Temperature"]
+                },
+                xAxis: [
+                    {
+                        type: "category",
+                        name: "距离/m",
+                        splitLine: { show: false },
+                        data: sampledots
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: "value",
+                        name: "温度/℃"
+                    }
+                ],
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {
+                            show: true
+                        },
+                        dataView: {
+                            show: true,
+                            readOnly: true
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                },
+                calculable: true,
+                series: [
+                    {
+                        name: "Temperature",
+                        type: "line",
+                        data: str["amplitude"]
+
+                    }
+                ]
+            };
+
+            myChart.clear();
+            myChart.setOption(option);
+        }
+
+        //改变main标签大小的方法
+        function setSize(size) {
+            // 首先是取到元素
+            var main = document.getElementById('main');
+            main.style.width = size["width"] + "px";
+            main.style.height = size["height"] + "px";
+            myChart.resize();
+        }
+
+        window.onresize = myChart.resize;
+
+        //运行init()
+        init();
+    </script>
+</body>
+
+</html>
