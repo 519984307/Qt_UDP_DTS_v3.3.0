@@ -1,27 +1,25 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "CirQueue.h"
+#include "udp_recv.h"
+#include "udp_send.h"
+//#include "HEXtoDEC.h"
 #include <QMainWindow>
 #include <QThread>
 #include <demodulation.h>
-#include <qcustomplot.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "math.h"
-//#include "matrix.h"
 #include <fstream>
 #include <sstream>
-#include "raw_wave_widget.h"
-#include "add_wave_widget.h"
-#include "MaxValue_wavelength_widget.h"
-#include "Centroid_wavelength_widget.h"
-#include "Temp_distance_widget.h"
-#include "raw_data_save.h"
 #include "Temp_distance_save.h"
 #include <QtWebEngineWidgets>
 #include <QtWebChannel>
-#include "webclass.h"
+//#include "webclass.h"
 #include <QResizeEvent>
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,15 +28,10 @@ QT_END_NAMESPACE
 using namespace std;
 
 class demodulation;
-class QCustomPlot;
-class raw_wave_widget;
-class raw_data_save;
-class add_wave_widget;
-class MaxValue_wavelength_widget;
-class Centroid_wavelength_widget;
-class Temp_distance_widget;
 class Temp_distance_save;
-class WebClass;
+class udp_recv;
+class udp_send;
+class HEXtoDEC;
 
 class MainWindow : public QMainWindow
 {
@@ -49,79 +42,68 @@ public:
     ~MainWindow();
 
     Ui::MainWindow *ui;
-    double* raw_data;
-    raw_wave_widget* m_raw_wave_widget;
+//    double* raw_data;
     demodulation* m_demodulation;
-    add_wave_widget* m_add_wave_widget;
-    MaxValue_wavelength_widget* m_maxValue_wavelength_widget;
-    Centroid_wavelength_widget* m_centroid_wavelength_widget;
-    Temp_distance_widget* m_tempDistance_widget;
-    raw_data_save* m_raw_data_save;
     Temp_distance_save* m_temp_distance_save;
+    udp_recv* m_udp_recv;
+    udp_send* m_udp_send;
+    HEXtoDEC* m_hextodec;
 
-    QWebEngineView* m_raw_data_widget;
-    QWebEngineView* m_add_wave_data_widget;
-    QWebEngineView* m_max_approach_widget;
-    QWebEngineView* m_centroid_approach_widget;
+    QString send_data;
+
     QWebEngineView* m_temp_distance_widget;
+    QWebEngineView* m_max_temp_widget;
 
-    void init_widget_raw_data();
-    void init_widget_add_wave();
-    void init_widget_max_approach();
-    void init_widget_centroid_approach();
+    bool isStartRecv = false;
+
+    QTimer* Temp_Display_Timer;
+    QTimer* Temp_save_Timer;
+    QTimer* Alarm_Timer;
+
+     QLabel *label;
+         void paintEvent(QPaintEvent*) override;
+
+    int alarm_count=0; //±¨¾¯¼ÆÊ±
+
     void init_widget_temp_distance();
 
-    void echarts_load_raw_data();
-    void echarts_load_add_wave();
-    void echarts_load_max_approach();
-    void echarts_load_centroid_approach();
+    void init_widget_max_temp();
+
     void echarts_load_temp();
 
-    WebClass* webobj;
+    void Open_Temp_Save_Thread();
 
-    void test();
+    void start_alarm();
 
 signals:
     void sendToRaw_wave_widget(double* _senddata);
-//    void sendToAdd_wave_widget(double* _senddata);
+
 
 private slots:
-    void on_btn_readfls_clicked();
-
-//    void on_btn_dspwave_clicked();
-
     void on_btn_demodulation_clicked();
-
-    void on_btn_maxValue_clicked();
-
-    void on_btn_centroid_clicked();
-
-    void on_btn_temp_clicked();
-
-    void on_btn_reset_wave_clicked();
 
     void on_btn_save_temp_clicked();
 
-    void onResizeEcharts1();
-    void onResizeEcharts2();
-    void onResizeEcharts3();
-    void onResizeEcharts4();
+    void FinishUdp_recvThread();
+//    void FinishHEXtoDECThread();
+    void FinishDemodulationThread();
+    void FinishTemp_saveThread();
+
     void onResizeEcharts5();
+    void onResizeEcharts6();
+
+    void on_btn_recv_clicked();
+
+    void on_m_send_clicked();
 
 public slots:
-    void save_raw_data();
-//    void save_temp_distance_data();
-    void save_filename();
 
 protected:
     virtual void resizeEvent(QResizeEvent *event) override;
 
 private:
-    bool isLoaded1 = false;
-    bool isLoaded2 = false;
-    bool isLoaded3 = false;
-    bool isLoaded4 = false;
     bool isLoaded5 = false;
+    bool isLoaded6 = false;
 
 };
 #endif // MAINWINDOW_H

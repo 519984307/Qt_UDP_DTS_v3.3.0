@@ -2,12 +2,12 @@
 
 demodulation::demodulation(MainWindow* _mainWindow):
     m_mainwindow(_mainWindow),
-    raw_data(_mainWindow->raw_data),
-    all_wavelength_data(new double*[50])
+//    raw_data(_mainWindow->raw_data),
+    all_wavelength_data(new int*[64])
 //    spectrum_wava(new SurfacePlot()),
-//    wavelength_MaxApproach(new double[25002]),
-//    wavelength_CentroidApproach(new double[25002])
-//    Temp(new double[25002])
+//    wavelength_MaxApproach(new double[128]),
+//    wavelength_CentroidApproach(new double[128])
+//    Temp(new double[128])
 {
     //step1: 按光源扫描波长整理数据，即将每一个波长的信号分开
     //step2: 将这些波长信号累加
@@ -65,6 +65,20 @@ demodulation::demodulation(MainWindow* _mainWindow):
     all_wavelength_data[47]=single_wave_data_48;
     all_wavelength_data[48]=single_wave_data_49;
     all_wavelength_data[49]=single_wave_data_50;
+    all_wavelength_data[50]=single_wave_data_51;
+    all_wavelength_data[51]=single_wave_data_52;
+    all_wavelength_data[52]=single_wave_data_53;
+    all_wavelength_data[53]=single_wave_data_54;
+    all_wavelength_data[54]=single_wave_data_55;
+    all_wavelength_data[55]=single_wave_data_56;
+    all_wavelength_data[56]=single_wave_data_57;
+    all_wavelength_data[57]=single_wave_data_58;
+    all_wavelength_data[58]=single_wave_data_59;
+    all_wavelength_data[59]=single_wave_data_60;
+    all_wavelength_data[60]=single_wave_data_61;
+    all_wavelength_data[61]=single_wave_data_62;
+    all_wavelength_data[62]=single_wave_data_63;
+    all_wavelength_data[63]=single_wave_data_64;
 
 }
 
@@ -76,123 +90,146 @@ demodulation::~demodulation()
 
 void demodulation::run()
 {
-    /*---step1: 按光源扫描波长整理数据，即将每一个波长的信号分开
-    raw_data中波长顺序:  λ32、λ33 ... λ50、λ1、λ2 ... λ31---*/
-   int p = 0;
 
-   //先暂时维持λ1、λ2 ... λ50的顺序
-    for(int i=0;i<50;i++){
+    while(1){
+        /*---step1: 按光源扫描波长整理数据，即将每一个波长的信号分开
+        raw_data中波长顺序:  λ32、λ33 ... λ50、λ1、λ2 ... λ31
+        实际UDP通信解调数据时按λ1、λ2 ... λ50的顺序来---*/
+        for(int i=0;i<64;i++){
+            for(int j=0;j<128;j++){
 
-        for(int j=0;j<25002;j++){
+                //当队列不为空时，pop()，否则一直循环等待
+//                while (!m_mainwindow->m_udp_recv->CHdata2->isEmpty()) {
+//                    all_wavelength_data[i][j]=m_mainwindow->m_udp_recv->CHdata2->pop();
+//                }
+//                do{
+//                    QThread::msleep(1);
+//                }
+                while(m_mainwindow->m_udp_recv->CHdata2->isEmpty()){
+                    QThread::msleep(1);
+                }
 
-             all_wavelength_data[(i+32)%50][j]=m_mainwindow->raw_data[p];
-
-            p++;
+                all_wavelength_data[i][j]=m_mainwindow->m_udp_recv->CHdata2->pop();
+            }
         }
-    }
 
-    qDebug()<<"scan wavelength finished ! "<<endl;
+        qDebug()<<"scan wavelength finished ! "<<endl;
 
-    /*---step2: 将这些波长信号累加---*/
-    for(int k=0;k<25002;k++){
+        /*---step2: 将这些波长信号累加 弃用---*/
+//        for(int k=0;k<25002;k++){
 
-        double sum = 0;
+//            double sum = 0;
 
-        for(int p=0;p<50;p++)
-            sum = sum+all_wavelength_data[p][k];
+//            for(int p=0;p<50;p++)
+//                sum = sum+all_wavelength_data[p][k];
 
-        add_wave_data[k] = 100*sum; //强度扩大100倍
-    }
-
-//    emit sendToAdd_wave_widget();
-
-    qDebug()<<"add wavelength finished ! "<<endl;
-
-    /*---step3: 画光谱 弃用---*/
-//     s1 = 500,  s2= 800; //取all_wavelength_data中距离轴的范围是s1~s2
-//    w1=1550.5, w2=1553.44; //波长值的范围是w1~w2
-
-//    wavelength_distance_array = allocateData(50, 50);
-
-//    //给一条曲线赋值
-//    for(int n = 0; n < 50; n++)
-//    {
-//        for(int l = 0; l <50; l++)
-//        {
-//            wavelength_distance_array[n][l] = all_wavelength_data[l][s1];
+//            add_wave_data[k] = 100*sum; //强度扩大100倍
 //        }
-//    }
 
-    /*---step4: 最大值法确定中心波长---*/
-    for(int p=0;p<25002;p++){
+    //    emit sendToAdd_wave_widget();
 
-        double max_value = all_wavelength_data[0][p];
+//        qDebug()<<"add wavelength finished ! "<<endl;
 
-        int max_index = 0;
+        /*---step3: 画光谱 弃用---*/
+    //     s1 = 500,  s2= 800; //取all_wavelength_data中距离轴的范围是s1~s2
+    //    w1=1550.5, w2=1553.44; //波长值的范围是w1~w2
 
-        for(int q=0;q<50;q++){
-            if(all_wavelength_data[q][p]>max_value){
-                max_index = q;
-                max_value = all_wavelength_data[q][p];
+    //    wavelength_distance_array = allocateData(50, 50);
+
+    //    //给一条曲线赋值
+    //    for(int n = 0; n < 50; n++)
+    //    {
+    //        for(int l = 0; l <50; l++)
+    //        {
+    //            wavelength_distance_array[n][l] = all_wavelength_data[l][s1];
+    //        }
+    //    }
+
+//        /*---step4: 最大值法确定中心波长---*/
+//        for(int p=0;p<128;p++){
+
+//            int max_value = all_wavelength_data[0][p];
+
+//            int max_index = 0;
+
+//            for(int q=0;q<64;q++){
+//                if(all_wavelength_data[q][p]>max_value){
+//                    max_index = q;
+//                    max_value = all_wavelength_data[q][p];
+//                }
+//            }
+//            //符合阈值条件的波长序号存入，不符合的序号设为0
+//            if(max_value>1320500) wavelength_MaxApproach[p]=max_index;
+//    //        else wavelength_MaxApproach[p] = 0;
+//        }
+
+    //    emit sendToMaxValue_widget();
+
+//        qDebug()<<"MaxValue Wavelength finished ! "<<endl;
+
+//        /*---step4: 质心法确定中心波长---*/
+//        for(int p=0;p<128;p++){
+
+//            int max_value = all_wavelength_data[0][p];
+
+//    //        int max_index = 0;
+
+//            for(int q=0;q<64;q++){
+//                if(all_wavelength_data[q][p]>max_value){
+//    //                max_index = q;
+//                    max_value = all_wavelength_data[q][p];
+//                }
+//            }
+
+//            //符合阈值条件的波长序号存入，不符合的序号设为0
+//            if(max_value>3) {
+//                int fenzi=0,fenmu=0;
+
+//                for(int m=0;m<50;m++){
+//                    fenzi = fenzi + (all_wavelength_data[m][p]+50)*m;
+//                    fenmu = fenmu + (all_wavelength_data[m][p]+50);
+//                }
+
+//                wavelength_CentroidApproach[p] = fenzi/fenmu;
+//            }
+//    //        else wavelength_CentroidApproach[p] = 0;
+//        }
+
+//    //    emit sendToCentroid_widget();
+
+//        qDebug()<<"Centroid Wavelength finished ! "<<endl;
+
+        /*--step5: 温度判断算法--*/
+
+        //Temp置零
+        memset(Temp,0,sizeof(Temp));
+        //定义阈值mean
+        int mean = 0;
+
+        //第一个距离的波长值取平均后加3000
+        for(int m=0; m<64; m++)
+            mean += all_wavelength_data[1][m];
+        mean = mean/64+3000;
+
+        MAX_Temp = 0;
+
+        for(int a=0;a<128;a++){
+            for(int b=0; b<64; b++){
+
+                // if(all_wavelength_data[b][a]>1320500 && wavelength_MaxApproach[a]!='\0')
+                if(all_wavelength_data[b][a]>mean )
+                    Temp[a] = (1549.5+0.06*b-1550.5)/0.01; //根据公式计算出温度值(校准)
             }
+            //将最大温度置于MAX_Temp里
+            if(Temp[a]>MAX_Temp) MAX_Temp = Temp[a];
+
+            //if(Temp[a] == '\0') Temp[a]='0';
         }
-        //符合阈值条件的波长序号存入，不符合的序号设为0
-        if(max_value>1) wavelength_MaxApproach[p]=max_index;
-//        else wavelength_MaxApproach[p] = 0;
+
+        //    emit sendToTempDistance_widget();
+
+        qDebug()<<"Temp Distance finished ! "<<endl;
     }
-
-//    emit sendToMaxValue_widget();
-
-    qDebug()<<"MaxValue Wavelength finished ! "<<endl;
-
-    /*---step4: 质心法确定中心波长---*/
-    for(int p=0;p<25002;p++){
-
-        double max_value = all_wavelength_data[0][p];
-
-//        int max_index = 0;
-
-        for(int q=0;q<50;q++){
-            if(all_wavelength_data[q][p]>max_value){
-//                max_index = q;
-                max_value = all_wavelength_data[q][p];
-            }
-        }
-
-        //符合阈值条件的波长序号存入，不符合的序号设为0
-        if(max_value>3) {
-            double fenzi=0,fenmu=0;
-
-            for(int m=0;m<50;m++){
-                fenzi = fenzi + (all_wavelength_data[m][p]+50)*m;
-                fenmu = fenmu + (all_wavelength_data[m][p]+50);
-            }
-
-            wavelength_CentroidApproach[p] = fenzi/fenmu;
-        }
-//        else wavelength_CentroidApproach[p] = 0;
-    }
-
-//    emit sendToCentroid_widget();
-
-    qDebug()<<"Centroid Wavelength finished ! "<<endl;
-
-    /*--step5: 温度判断算法--*/
-
-    for(int a=0;a<25002;a++){
-
-        for(int b=0; b<50; b++){
-
-            if(all_wavelength_data[b][a]>1 && wavelength_CentroidApproach[a]!='\0')
-                Temp[a] = (1550.5+0.06*(b-wavelength_CentroidApproach[a])-1551.5)/0.01; //根据公式计算出温度值
-        }
-
-//        if(Temp[a] == 0) Temp[a]='\0';
-    }
-
-//    emit sendToTempDistance_widget();
-
-    qDebug()<<"Temp Distance finished ! "<<endl;
 
 }
 

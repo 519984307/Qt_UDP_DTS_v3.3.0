@@ -1,0 +1,203 @@
+<!--
+	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=gauge-stage&code=PYBwLglsB2AEC8sDeAoWsDOBTAThLGAXLANprrLkWxgCeIWxA5AOYCGAri1kwDRUUAthGjEADP2rpBbAB7EAjAA4JA9HIgYAMiMaUpFADa6AynUN7UB6gHcIAEzAALYgGZV1igGNgh4DmIyT2oAehDSMQA6V15YJgBiADYAdiwxLFcmAF1JYPQSKOTYhNdktgAmezZs3LySBWL4gDN7RLb7bLUpLK70AF8uvtqKEGARMFxiK2sICcEzWgsp3u9ff2ZOMGAmFYGDIa6NDAAVCC8Aa2XPe00wNmgvPQBad2HqC2gWZ2IlN6NTcyWFboHx-AJxZpNJp8YGwOyOFywcq7QZ_DAgYxgHTQIHXW73R7EF4eawfL6I14rYw4hZLfTBUHrCFQ6F_WwOb6wAAsKP2fyOWjYACMsIYrtZGeCmJttmzYDcMHcHnouSSDE0YGATBAAF56cpiVFdexYO4QMX0gwANzYhg4WAAgtAIDJIDBiGAcPa5RqcK6JlKkDa7Vg-oBgQhhnklGw4W0j1g10C1upVAFYjQYqndAitpp5g_biMlDZ49t0BGWen0ANwobBgACSSdwwYAFE0OA83XBWwBKemCWgAYScbBwYEi9YA8uAoNBW3nMLh8ERSF1F9Qs2wc3kN9YC3oANStgCybGckRw93swEEfdgACpYAoxGJe5EtgAxCCyLD2VvlL2sJlgYPT7AIYGwH0va1kMSKvm-1ZAA
+	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body style="height: 100%; margin: 0" background="black.jpg">
+  <div id="container" style="height: 100%"></div>
+
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    function load() {
+      option = {
+        title: {
+          text: "最高温度",
+          textStyle: {
+            fontSize: 35,
+          },
+          x: "center"
+        },
+        series: [
+          {
+            type: 'gauge',
+            min: 0,
+            max: 300,
+            axisLine: {
+              lineStyle: {
+                width: 30,
+                color: [
+                  // [0.3, '#67e0e3'],
+                  [0.6, '#37a2da'],
+                  [1, '#fd666d']
+                ]
+              }
+            },
+            pointer: {
+              itemStyle: {
+                color: 'auto'
+              }
+            },
+            axisTick: {
+              distance: -30,
+              length: 8,
+              lineStyle: {
+                color: '#fff',
+                width: 2
+              }
+            },
+            splitLine: {
+              distance: -30,
+              length: 30,
+              lineStyle: {
+                color: '#fff',
+                width: 4
+              }
+            },
+            axisLabel: {
+              color: 'auto',
+              distance: 40,
+              fontSize: 20
+            },
+            detail: {
+              valueAnimation: true,
+              formatter: '{value}℃',
+              color: 'auto',
+              fontSize: 60
+            },
+            data: [
+              {
+                value: 20
+              }
+            ]
+          }
+        ]
+      };
+
+      if (option && typeof option === 'object') {
+        myChart.setOption(option);
+      }
+
+    }
+
+    function load2(str) {
+      option = {
+        title: {
+          text: "最高温度",
+          textStyle: {
+            fontSize: 35,
+          },
+          x: "center"
+        },
+        series: [
+          {
+            type: 'gauge',
+            min: 0,
+            max: 300,
+            axisLine: {
+              lineStyle: {
+                width: 30,
+                color: [
+                  // [0.3, '#67e0e3'],
+                  [0.6, '#37a2da'],
+                  [1, '#fd666d']
+                ]
+              }
+            },
+            pointer: {
+              itemStyle: {
+                color: 'auto'
+              }
+            },
+            axisTick: {
+              distance: -30,
+              length: 8,
+              lineStyle: {
+                color: '#fff',
+                width: 2
+              }
+            },
+            splitLine: {
+              distance: -30,
+              length: 30,
+              lineStyle: {
+                color: '#fff',
+                width: 4
+              }
+            },
+            axisLabel: {
+              color: 'auto',
+              distance: 40,
+              fontSize: 20
+            },
+            detail: {
+              valueAnimation: true,
+              formatter: '{value}℃',
+              color: 'auto',
+              fontSize: 60
+            },
+            data: [
+              {
+                value: str["temperature"]
+              }
+            ]
+          }
+        ]
+      };
+
+      if (option && typeof option === 'object') {
+        myChart.setOption(option);
+      }
+
+    }
+
+    function setSize(size) {
+      // 首先�?取到元素
+      var main = document.getElementById('main');
+      main.style.width = size["width"] + "px";
+      main.style.height = size["height"] + "px";
+      myChart.resize();
+    }
+
+    window.addEventListener('resize', myChart.resize);
+
+    load();
+
+
+  </script>
+</body>
+
+</html>

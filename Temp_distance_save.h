@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <mainwindow.h>
+#include <QDateTime>
 
 class demodulation;
 

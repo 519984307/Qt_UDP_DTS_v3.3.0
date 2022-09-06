@@ -16,7 +16,7 @@
 
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+        var myChart = echarts.init(document.getElementById('main'), 'dark');
 
         //定义init()
         function init() {
@@ -25,7 +25,7 @@
             let amplitude = []; //强度
 
             for (var i = 1; i <= 25002; i++) {
-                sampledots.push([i*0.04]);
+                sampledots.push([i * 0.04]);
                 amplitude.push(0);
             }
 
@@ -43,6 +43,9 @@
                     x: 'left',
                     data: ["centroid_approach_wavelength"]
                 },
+                // dataZoom: { // 放大和缩放
+                //     type: 'inside'
+                // },
                 xAxis: [
                     {
                         type: "category",
@@ -54,7 +57,9 @@
                 yAxis: [
                     {
                         type: "value",
-                        name: "中心波长/nm"
+                        name: "中心波长/nm",
+                        min: 1551.5,
+                        max: 1552.5
                     }
                 ],
                 //小工具
@@ -68,9 +73,9 @@
                             show: true,
                             readOnly: true
                         },
-                        restore: { //还原
-                            show: true
-                        },
+                        // restore: { //还原
+                        //     show: true
+                        // },
                         saveAsImage: { //保存为图片
                             show: true
                         }
@@ -98,7 +103,7 @@
             let amplitude = []; //强度
 
             for (var i = 1; i <= 25002; i++) {
-                sampledots.push([i*0.04]);
+                sampledots.push([i * 0.04]);
                 // amplitude.push(str["amplitude"]); //获取json字符串中的amplitude
             }
 
@@ -115,6 +120,9 @@
                     x: 'left',
                     data: ["centroid_approach_wavelength"]
                 },
+                dataZoom: { // 放大和缩放
+                    type: 'inside'
+                },
                 xAxis: [
                     {
                         type: "category",
@@ -126,7 +134,9 @@
                 yAxis: [
                     {
                         type: "value",
-                        name: "中心波长/nm"
+                        name: "中心波长/nm",
+                        min: 1551.5,
+                        max: 1552.5
                     }
                 ],
                 toolbox: {
@@ -139,9 +149,9 @@
                             show: true,
                             readOnly: true
                         },
-                        restore: {
-                            show: true
-                        },
+                        // restore: {
+                        //     show: true
+                        // },
                         saveAsImage: {
                             show: true
                         }

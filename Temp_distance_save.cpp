@@ -10,7 +10,7 @@ void Temp_distance_save::run()
 {
     dateTime = QDateTime::currentDateTime();
 
-    emit getFilename();
+//    emit getFilename();
 
     //文件夹路径+文件名
     saveFilenameAll = saveFilename+QString("/")+QString("[demo]")+dateTime.toString("yyyyMMddhhmmss")+ QString(".bin");

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/background.jpg</file>
+        <file>res/alarm.jpg</file>
+        <file>res/温度.png</file>
+        <file>res/飞机.png</file>
+    </qresource>
+</RCC>

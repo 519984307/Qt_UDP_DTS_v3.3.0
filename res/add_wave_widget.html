@@ -16,7 +16,7 @@
 
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+        var myChart = echarts.init(document.getElementById('main'), 'dark');
 
         //定义init()
         function init() {
@@ -43,6 +43,9 @@
                     x: 'left',
                     data: ["add_wave"]
                 },
+                // dataZoom: { // 放大和缩放
+                //     type: 'inside'
+                // },
                 xAxis: [
                     {
                         type: "category",
@@ -57,6 +60,13 @@
                         name: "波长/nm"
                     }
                 ],
+                // grid: { // 控制图表上下左右间距
+                //     top: top || '15%',
+                //     left: '1%',
+                //     right: '3%',
+                //     bottom: '30rpx',
+                //     containLabel: true
+                // },
                 //小工具
                 toolbox: {
                     show: true,
@@ -68,9 +78,9 @@
                             show: true,
                             readOnly: true
                         },
-                        restore: { //还原
-                            show: true
-                        },
+                        // restore: { //还原
+                        //     show: true
+                        // },
                         saveAsImage: { //保存为图片
                             show: true
                         }
@@ -115,6 +125,9 @@
                     x: 'left',
                     data: ["add_wave"]
                 },
+                dataZoom: { // 放大和缩放
+                    type: 'inside'
+                },
                 xAxis: [
                     {
                         type: "category",
@@ -129,6 +142,14 @@
                         name: "波长/nm"
                     }
                 ],
+
+                // grid: { // 控制图表上下左右间距
+                //     top: top || '15%',
+                //     left: '1%',
+                //     right: '3%',
+                //     bottom: '30rpx',
+                //     containLabel: true
+                // },
                 toolbox: {
                     show: true,
                     feature: {
@@ -139,9 +160,9 @@
                             show: true,
                             readOnly: true
                         },
-                        restore: {
-                            show: true
-                        },
+                        // restore: {
+                        //     show: true
+                        // },
                         saveAsImage: {
                             show: true
                         }

@@ -1,47 +1,31 @@
-QT       += core gui printsupport webenginewidgets webchannel
+QT       += core gui printsupport webenginewidgets webchannel network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++11 resources_big
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Centroid_wavelength_widget.cpp \
-    MaxValue_wavelength_widget.cpp \
     Temp_distance_save.cpp \
-    Temp_distance_widget.cpp \
-    add_wave_widget.cpp \
     demodulation.cpp \
     main.cpp \
     mainwindow.cpp \
-    qcustomplot.cpp \
-    raw_data_save.cpp \
-    raw_wave_widget.cpp \
-    webclass.cpp
+    udp_recv.cpp \
+    udp_send.cpp
 
 HEADERS += \
-    Centroid_wavelength_widget.h \
-    MaxValue_wavelength_widget.h \
+    CirQueue.h \
     Temp_distance_save.h \
-    Temp_distance_widget.h \
-    add_wave_widget.h \
     demodulation.h \
     mainwindow.h \
-    qcustomplot.h \
-    raw_data_save.h \
-    raw_wave_widget.h \
-    webclass.h
+    udp_recv.h \
+    udp_send.h
 
 FORMS += \
-    Centroid_wavelength_widget.ui \
-    MaxValue_wavelength_widget.ui \
-    Temp_distance_widget.ui \
-    add_wave_widget.ui \
-    mainwindow.ui \
-    raw_wave_widget.ui
+    mainwindow.ui
 
 
 # Default rules for deployment.
@@ -68,4 +52,10 @@ QTQUICK_COMPILER_SKIPPED_RESOURCES += xxxx.qrc
 DISTFILES += \
     res/echarts.js \
     res/echarts.min.js \
+    res/my.qss \
     res/raw_data_echarts.html
+
+LIBS += -lws2_32
+
+RESOURCES += \
+    res.qrc
